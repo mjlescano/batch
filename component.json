@@ -1,9 +1,18 @@
 {
-  "name": "batch",
-  "repo": "visionmedia/batch",
-  "description": "Async task batching",
+  "name": "mjlescano-batch",
+  "repo": "mjlescano/batch",
+  "description": "Async task batching with rollbacks",
   "version": "0.5.2",
-  "keywords": ["batch", "async", "utility", "concurrency", "concurrent"],
+  "keywords": [
+    "batch",
+    "async",
+    "utility",
+    "concurrency",
+    "concurrent",
+    "rollback",
+    "fail",
+    "safe"
+  ],
   "dependencies": {
     "component/emitter": "*"
   },

@@ -1,5 +1,9 @@
 
-# batch
+# batch (with rollbacks)
+
+  This is a fork of [visionmedia/batch](https://github.com/visionmedia/batch) to
+  add rollbacks capabilites. If you don't need them, I would recommend to you to
+  use the original repo.
 
   Simple async batch with concurrency control, progress reporting and rollback capabilites.
 
