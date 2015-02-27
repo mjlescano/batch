@@ -27,6 +27,7 @@ module.exports = Batch;
 function Batch() {
   if (!(this instanceof Batch)) return new Batch;
   this.fns = [];
+  this.rbks = [];
   this.concurrency(Infinity);
   this.throws(true);
   for (var i = 0, len = arguments.length; i < len; ++i) {
@@ -65,8 +66,9 @@ Batch.prototype.concurrency = function(n){
  * @api public
  */
 
-Batch.prototype.push = function(fn){
+Batch.prototype.push = function(fn, rbk){
   this.fns.push(fn);
+  this.rbks.push(rbk || noop);
   return this;
 };
 
@@ -91,18 +93,33 @@ Batch.prototype.throws = function(throws) {
  * @api public
  */
 
-Batch.prototype.end = function(cb){
+Batch.prototype.end = function(_cb){
   var self = this
     , total = this.fns.length
     , pending = total
     , results = []
     , errors = []
-    , cb = cb || noop
+    , _cb = _cb || noop
     , fns = this.fns
     , max = this.n
     , throws = this.e
     , index = 0
     , done;
+
+  function cb(err, results){
+    if (err) {
+      var rbks = new Batch();
+      rbks.concurrency(self.n);
+      rbks.throws(self.e);
+      self.rbks.splice(total - pending, pending);
+      for (var i = self.rbks.length; i--;) {
+        rbks.push(self.rbks[i]);
+      }
+      rbks.end(function(_err, _results){
+        _cb(err, results, _err, _results);
+      });
+    } else _cb(err, results);
+  }
 
   // empty
   if (!fns.length) return cb(null, results);
