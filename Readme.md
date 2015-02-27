@@ -1,12 +1,12 @@
 
 # batch
 
-  Simple async batch with concurrency control and progress reporting.
+  Simple async batch with concurrency control, progress reporting and rollback capabilites.
 
 ## Installation
 
 ```
-$ npm install batch
+$ npm install mjlescano-batch
 ```
 
 ## API
@@ -46,6 +46,27 @@ batch.end(function(err, users){
   start: Thu Oct 04 2012 12:25:53 GMT-0700 (PDT),
   end: Thu Oct 04 2012 12:25:53 GMT-0700 (PDT),
   duration: 0 }
+```
+
+### Rollbacking
+
+```js
+var Batch = require('batch')
+  , batch = new Batch;
+
+batch.concurrency(1);
+
+ids.forEach(function(id){
+  batch.push(function(done){
+    User.create(id, done);
+  },function(prev){
+    User.delete(id, prev);
+  });
+});
+
+batch.end(function(err, users){
+
+});
 ```
 
 ## License
