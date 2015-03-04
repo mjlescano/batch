@@ -2,7 +2,7 @@
   "name": "mjlescano-batch",
   "repo": "mjlescano/batch",
   "description": "Async task batching with rollbacks",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "keywords": [
     "batch",
     "async",
