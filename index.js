@@ -12,7 +12,7 @@ try {
  * Noop.
  */
 
-function noop(){}
+function noop(done){ done(null); }
 
 /**
  * Expose `Batch`.
