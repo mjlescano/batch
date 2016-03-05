@@ -1,6 +1,6 @@
 {
-    "name": "mjlescano-batch",
-    "version": "0.5.3",
+    "name": "batch–with-rollbacks",
+    "version": "0.5.4",
     "licenses": [
         {
             "type": "MIT"
