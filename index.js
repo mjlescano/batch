@@ -139,7 +139,7 @@ Batch.prototype.end = function(_cb){
 
     function callback(err, res){
       if (done) return;
-      if (err && throws) return done = true, cb(err);
+      if (err && throws) return done = true, cb(err, results);
       var complete = total - pending + 1;
       var end = new Date;
 
